@@ -4,7 +4,8 @@
 
 
     // const backendDomin="http://localhost:8080"
-    const backendDomin="https://mern-stack-e-commerce-backend-1200.onrender.com/"
+    const backendDomin="https://mern-stack-e-commerce-backend-1200.onrender.com"
+
 
     //here path is only written if new page is not rendring
     //this paths are use by frontend to connect with backend
