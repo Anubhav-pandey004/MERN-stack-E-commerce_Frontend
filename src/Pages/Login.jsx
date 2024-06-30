@@ -37,7 +37,6 @@ let handelSubmit=async(event)=>{
 
   const dataResponse=await fetch(SummaryApi.login.url,{
     method : SummaryApi.login.method,
-      mode: 'no-cors',
     credentials:'include',
     headers:{
       "content-type" : "application/json"
