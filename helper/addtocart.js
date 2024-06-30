@@ -9,6 +9,7 @@ const addToCart =async(e,id)=>{
 
     const response = await fetch(SummaryApi.addtocartproduct.url,{
         method : SummaryApi.addtocartproduct.method,
+         mode: 'no-cors',
         credentials:'include',
         headers: {
             'Content-Type': 'application/json',
