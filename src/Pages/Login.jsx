@@ -118,7 +118,7 @@ let handelSubmit=async(event)=>{
     </div>
   )
 }
-const Image = styled.img
+const Image = styled.img`
   filter: contrast(2);
-
+`
 export default Login
