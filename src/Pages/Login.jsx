@@ -9,22 +9,23 @@ import Context from '../context';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({
+    let [formData, setformData] = useState({
         email: "",
         password: ""
     });
     const navigate = useNavigate();
     const { fetchUserDetails, fetchUserAddToCart } = useContext(Context);
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((currentData) => ({
-            ...currentData,
-            [name]: value,
-        }));
+    let handelInputChange = (event) => {
+        let fieldname = event.target.name;
+        let newvalue = event.target.value;
+
+        setformData((currData) => {
+            return { ...currData, [fieldname]: newvalue };
+        });
     };
 
-    const handleSubmit = async (event) => {
+    let handelSubmit = async (event) => {
         event.preventDefault();
 
         const dataResponse = await fetch(SummaryApi.login.url, {
@@ -43,8 +44,12 @@ function Login() {
             fetchUserDetails();
             fetchUserAddToCart();
         } else {
-            toast.error(data.message || "Something went wrong");
-            setFormData({
+            if (!data.message) {
+                toast.error("Something went wrong");
+                return;
+            }
+            toast.error(data.message);
+            setformData({
                 email: "",
                 password: ""
             });
@@ -59,7 +64,7 @@ function Login() {
                         <div className='w-20 h-20 mx-auto'>
                             <Image className='sign-up-img' src={loginIcon} alt="img" />
                         </div>
-                        <form className='pt-6 flex-col gap-8' onSubmit={handleSubmit}>
+                        <form className='pt-6 flex-col gap-8' onSubmit={handelSubmit}>
                             <div className='grid'>
                                 <label htmlFor="email">Email :</label>
                                 <div className='bg-slate-200 p-2 rounded-full'>
@@ -69,7 +74,7 @@ function Login() {
                                         name='email'
                                         placeholder='Enter email'
                                         value={formData.email}
-                                        onChange={handleInputChange}
+                                        onChange={handelInputChange}
                                         className='w-full h-full outline-none bg-transparent'
                                     />
                                 </div>
@@ -82,7 +87,7 @@ function Login() {
                                         name='password'
                                         value={formData.password}
                                         type={showPassword ? "text" : "password"}
-                                        onChange={handleInputChange}
+                                        onChange={handelInputChange}
                                         placeholder='Enter password'
                                         className='w-full h-full outline-none bg-transparent'
                                     />
@@ -101,7 +106,7 @@ function Login() {
 
                             <button className='bg-red-600 hover:bg-red-700 text-white px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-4'>Login</button>
                         </form>
-                        <p className='my-4'>Don't have an account? <Link to='/sign-up' className='text-red-600 hover:underline hover:text-red-700 px-2'>Sign-up</Link></p>
+                        <p className='my-4'>Don't have account?<Link to='/sign-up' className='text-red-600 hover:underline hover:text-red-700 px-2'>Sign-up</Link></p>
                     </div>
                 </div>
             </section>
